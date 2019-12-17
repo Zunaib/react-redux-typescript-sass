@@ -1,9 +1,8 @@
-
 import * as webpack from "webpack";
-import * as HtmlWebPackPlugin from "html-webpack-plugin";
+import HtmlWebPackPlugin from "html-webpack-plugin";
 
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: "./src/index.html"
+  template: "./public/index.html"
 });
 
 const config: webpack.Configuration = {
@@ -17,7 +16,22 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-      { test: /\.tsx?$/, loader: "awesome-typescript-loader" }
+      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+      {
+        test: /\.scss$/,
+        loaders: [
+          require.resolve('style-loader'),
+          require.resolve('css-loader'),
+          require.resolve('sass-loader')
+        ]
+      },
+      {
+        exclude: [/\.(js|ts|jsx|tsx|mjs)$/, /\.html$/, /\.json$/, /\.scss$/],
+        loader: require.resolve('file-loader'),
+        options: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
+      }
     ]
   },
   plugins: [htmlPlugin]

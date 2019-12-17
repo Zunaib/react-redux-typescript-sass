@@ -6,8 +6,11 @@
     "lib": [
       "es5",
       "es6",
-      "dom"
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
+    "esModuleInterop": true,
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node"
